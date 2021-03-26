@@ -118,6 +118,8 @@ public class CredentialPage {
     }
 
     public void edit(String url,String user,String password) {
+        waitForElement(credTab);
+        credTab.click();
         waitForElement(editBtn);
         editBtn.click();
         waitForElement(urlEdit);
@@ -132,6 +134,8 @@ public class CredentialPage {
     }
 
     public void delete(String url) {
+        waitForElement(credTab);
+        credTab.click();
         waitForElement(deleteBtn);
         deleteBtn.click();
         webDriver.get(url);

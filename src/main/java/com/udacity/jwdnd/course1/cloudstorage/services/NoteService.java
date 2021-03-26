@@ -49,5 +49,9 @@ public class NoteService {
         noteMapper.updateNote(title,desc,noteId);
     }
 
+    public boolean isNoteExistsByUserId (Authentication authentication,Note note) {
+        return noteMapper.isExistsNoteByUserId(note.getNoteTitle(),note.getNoteDescription(),getUserId(authentication))>0;
+    }
+
 
 }

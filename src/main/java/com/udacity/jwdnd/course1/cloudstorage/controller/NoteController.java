@@ -28,13 +28,42 @@ public class NoteController {
         if (note.getNoteId()!=null) {
             noteId=note.getNoteId();
             if (noteService.getNoteById(noteId)!=null) {
-                noteService.editNote(note.getNoteTitle(),note.getNoteDescription(),noteId);
+                try {
+
+                    if (note.getNoteTitle().length()>999 || note.getNoteDescription().length()>999) {
+                        signupError="Note can't be saved as description exceed 1000 characters";
+                    } else {
+                        if (noteService.isNoteExistsByUserId(authentication,note)==true) {
+                            signupError="Note already exists...";
+                        } else {
+                            noteService.editNote(note.getNoteTitle(), note.getNoteDescription(), noteId);
+                        }
+                    }
+                } catch (Exception ex) {
+                    signupError=ex.getMessage();
+                }
+
                 update=true;
             }
         }
 
         if (update==false) {
-            int dbId = noteService.createNote(authentication, note.getNoteTitle(), note.getNoteDescription());
+            int dbId=0;
+            try {
+                if (note.getNoteTitle().length()>999 || note.getNoteDescription().length()>999) {
+                        signupError="Note can't be saved as description exceed 1000 characters";
+                } else {
+                    if (noteService.isNoteExistsByUserId(authentication,note)==true) {
+                        signupError="Note conflicts.. because Note already exists...";
+                    } else {
+                        dbId = noteService.createNote(authentication, note.getNoteTitle(), note.getNoteDescription());
+                    }
+
+                }
+            } catch (Exception ex) {
+                signupError=ex.getMessage();
+            }
+
 
             if (dbId < 1) {
                 signupError = "Note no created";

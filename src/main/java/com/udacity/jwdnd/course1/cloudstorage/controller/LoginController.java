@@ -7,15 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.http.HttpRequest;
+
 @Controller
 @RequestMapping("/login")
 public class LoginController {
+    // @RequestParam(value = "success", required=false) String success,
     @GetMapping
-    public String loginView (@RequestParam String ok, Model model) {
-        System.out.println(ok);
-        if (ok.equals("true")) {
-            model.addAttribute("signupSuccess",true);
-        }
+    public String loginView () {
         return "login";
     }
+
+
 }

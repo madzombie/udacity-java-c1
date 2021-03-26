@@ -23,4 +23,7 @@ public interface NoteMapper {
 
     @Update("UPDATE NOTES set noteTitle=#{noteTitle}, noteDescription=#{noteDescription} where noteId=#{noteId}")
     public void updateNote(String noteTitle,String noteDescription,Integer noteId);
+
+    @Select("SELECT count(*) FROM NOTES WHERE userId=#{userId} and noteTitle=#{noteTitle} and noteDescription=#{noteDescription}")
+    int isExistsNoteByUserId (String noteTitle,String noteDescription,Integer userId);
 }

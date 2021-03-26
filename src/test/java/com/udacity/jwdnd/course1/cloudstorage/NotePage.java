@@ -70,6 +70,8 @@ public class NotePage {
         assertEquals(desc,descLablel.getText());
     }
     public void edit (String title,String desc,String url) {
+        waitForElement(notesTab);
+        notesTab.click();
         waitForElement(editBtn);
         editBtn.click();
         waitForElement(addTitle);
@@ -83,6 +85,8 @@ public class NotePage {
 
     }
     public void delete (String url) {
+        waitForElement(notesTab);
+        notesTab.click();
         waitForElement(deleteBtn);
         deleteBtn.click();
         webDriver.get(url);

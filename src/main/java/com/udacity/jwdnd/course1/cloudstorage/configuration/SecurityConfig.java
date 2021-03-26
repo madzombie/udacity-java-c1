@@ -36,6 +36,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .defaultSuccessUrl("/home", true);
 
+        http.logout()
+                .logoutSuccessHandler((httpServletRequest, httpServletResponse, authentication) -> {
+                    try {
+                        Thread.sleep(1000);
+                        System.out.println("User " + authentication.getName() + " is logging out");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("User " + authentication.getName() + " has logged out");
+                    httpServletResponse.sendRedirect("/login");
+                });
 
     }
 }
